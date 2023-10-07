@@ -1,4 +1,4 @@
-**Terminal:** 
+25**Terminal:** 
 
 run python on terminal: 
 
@@ -862,4 +862,258 @@ import module_name as name_you_pick_for_the_module
         Women make up 40 percent of Physicians
         Women make up 37 percent of Lawyers
         Women make up 9 percent of Aerospace Engineers
+        ```
+        - Scrabble: Dictionaries exercise
+    
+    ```python
+    letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    points = [1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 4, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10]
+    
+    #creating a dictionary
+    letter_to_points= {key:value for key, value in zip(letters, points)}
+    letter_to_points[" "]= 0
+    #defining a new fucntion
+    
+    def score_word(word):
+      point_total= 0
+      for letter in word:
+        point_total+= letter_to_points.get(letter, 0)
+      return point_total
+    brownie_points= score_word("BROWNIE")
+    print(brownie_points)
+    
+    #output
+    15
+    
+    #Score Game exercise
+    player_to_words={"player1": ["BLUE", "TENNIS", "EXIT"], "wordNerd": ["EARTH", "EYES", "MACHINE"], "Lexi Con": ["ERASER", "BELLY", "HUSKY"], "Prof Reader": ["ZAP", "COMA", "PERIOD"]}
+    
+    player_to_points={}
+    for player, words in player_to_words.items():
+        player_points = 0  # Initialize player_points to 0
+        
+        # Iterate through each word in words and calculate the score
+        for word in words:
+            player_points += score_word(word)
+        player_to_points[player]= player_points
+    print(player_to_points)
+    
+    #output
+    {'player1': 29, 'wordNerd': 32, 'Lexi Con': 31, 'Prof Reader': 31}
+    ```
+    
+
+---
+
+- **********FILES**********
+    
+    
+    - Open up file objects using `[open()](https://www.codecademy.com/resources/docs/python/built-in-functions/open)` and `with`.
+    - Read a file’s full contents using Python’s `.read()` method.
+    - Read a file line-by-line using `[.readline()](https://www.codecademy.com/resources/docs/python/files/readline)` and `.readlines()`
+    - Create new files by opening them in write-mode.
+    
+    ---
+    
+    — ***************************Opening and reading a file***************************
+    
+    - Use `with` to open file and `.read()` to read files
+    
+    eg: 
+    
+    ```python
+    with open("welcome.txt") as text_file:
+      text_data= text_file.read()
+    print(text_data)
+    
+    #output
+    will print out the contents of the file
+    ```
+    
+    — *********************************************Reading lines in a text*********************************************
+    
+    - Use `.readlines()` to read lines by iterating through the text lines
+    
+    eg: 
+    
+    ```python
+    with open("how_many_lines.txt") as lines_doc:
+      for line in lines_doc.readlines():
+        print(line)
+    ```
+    
+    — ************************Reading individual lines in text************************
+    
+    - Use `.readline()` to read individual lines by iterating through the text lines
+    
+    eg: 
+    
+    ```python
+    with open("just_the_first.txt") as first_line_doc:
+      first_line= first_line_doc.readline()
+    print(first_line)
+    
+    #output
+    prints only the first line of the text
+    ```
+    
+    — ***Writing a file***
+    
+    - we can open our own file using `.write()` function
+    
+    eg: 
+    
+    ```python
+    with open("bad_bands.txt", "w") as bad_bands_doc:
+      bad_bands_doc.write("LBD")
+    print(bad_bands_doc)
+    ```
+    
+    Here `w` indicates that we want the program to write the file
+    
+    contrastingly, `r` indicates that we want the program to read the file
+    
+    — ******************************Appending to a file******************************
+    
+    - we can add line to the file using `a` for append mode
+    
+    eg 
+    
+    ```python
+    with open("cool_dogs.txt", "a") as cool_dogs_file:
+      cool_dogs_file.write("Air Buddy \n")
+    
+    #output
+    will display the text with the added "Air Buddy"
+    ```
+    
+    — ******************************************Closing a file******************************************
+    
+    - Can close the file without using `with` function
+    - We can use `open()` and `close()`
+    
+    — ******************************************************Reading a CSV file******************************************************
+    
+    - Use function `csv.DictReader()`
+    - Iterate through the rows of the csv file
+    
+    eg 
+    
+    ```python
+    import csv
+    with open("cool_csv.csv") as cool_csv_file:
+      cool_csv_dict= csv.DictReader(cool_csv_file)
+      for row in cool_csv_dict:
+        print(row["Cool Fact"])
+    
+    #Output
+    prints the values in the rows of the csv file
+    ```
+    
+    — *********Reading different types of CSV files*********
+    
+    - these file contain ; @ and other delimiters making files a bit confusing to read. This can be sorted by the following.
+    
+    eg 
+    
+    ```python
+    import csv
+    with open("books.csv") as books_csv:
+      books_reader= csv.DictReader(books_csv, delimiter= "@")
+      isbn_list=[book["ISBN"] for book in books_reader]
+    print(isbn_list)
+    ```
+    
+    — ******************Writing a CSV file******************
+    
+    - we can use functions such as `csv.DictWriter()` `.writeheader()` `.writerow()`
+    
+    eg: 
+    
+    ```python
+    access_log = [{'time': '08:39:37', 'limit': 844404, 'address': '1.227.124.181'}, {'time': '13:13:35', 'limit': 543871, 'address': '198.51.139.193'}, {'time': '19:40:45', 'limit': 3021, 'address': '172.1.254.208'}, {'time': '18:57:16', 'limit': 67031769, 'address': '172.58.247.219'}, {'time': '21:17:13', 'limit': 9083, 'address': '124.144.20.113'}, {'time': '23:34:17', 'limit': 65913, 'address': '203.236.149.220'}, {'time': '13:58:05', 'limit': 1541474, 'address': '192.52.206.76'}, {'time': '10:52:00', 'limit': 11465607, 'address': '104.47.149.93'}, {'time': '14:56:12', 'limit': 109, 'address': '192.31.185.7'}, {'time': '18:56:35', 'limit': 6207, 'address': '2.228.164.197'}]
+    fields = ['time', 'address', 'limit']
+    
+    import csv
+    with open("logger.csv", "w") as logger_csv:
+      log_writer= csv.DictWriter(logger_csv, fieldnames= fields)
+      log_writer.writeheader()
+    
+      for log in access_log:
+        log_writer.writerow(log)
+      print(log_writer)
+    ```
+    
+    - **********************************JSON file : JavaScript Objection Notation**********************************
+        - similar to opening a csv file.
+        - Use `json.load()`
+        
+        eg 
+        
+        ```python
+        import json
+        with open("message.json") as message_json:
+          message= json.load(message_json)
+        print(message['text'])
+        ```
+        
+        — ************************Writing a JSON file************************
+        
+        - using `json.dump()`
+        
+        eg 
+        
+        ```python
+        data_payload = [
+          {'interesting message': 'What is JSON? A web application\'s little pile of secrets.',
+           'follow up': 'But enough talk!'}
+        ]
+        import json
+        with open('data.json','w') as data_json:
+          json.dump(data_payload, data_json)
+        print(data_payload)
+        ```
+        
+    - **Hacking the Fender Exercise**
+        
+        ```python
+        import csv
+        compromised_users=[]
+        with open('passwords.csv') as password_file:
+          password_csv= csv.DictReader(password_file)
+          for password_row in password_csv:
+            compromised_users.append(password_row['Username'])
+        
+        #new block
+        with open('compromised_users.txt', 'w') as compromised_user_file:
+           for users in compromised_users:
+            compromised_user_file.write(users)
+        
+        #notifying the boss
+        import json
+        with open('boss_message.json', 'w') as boss_message:
+          boss_message_dict= {'recipient': 'The Boss', 'message': 'Mission Success'}
+          json.dump(boss_message_dict, boss_message)
+        
+          #removing the password
+          with open('new_passwords.csv', 'w') as new_passwords_obj:
+            slash_null_sig="""
+         _  _     ___   __  ____             
+        / )( \   / __) /  \(_  _)            
+        ) \/ (  ( (_ \(  O ) )(              
+        \____/   \___/ \__/ (__)             
+         _  _   __    ___  __ _  ____  ____  
+        / )( \ / _\  / __)(  / )(  __)(    \ 
+        ) __ (/    \( (__  )  (  ) _)  ) D ( 
+        \_)(_/\_/\_/ \___)(__\_)(____)(____/ 
+                ____  __     __   ____  _  _ 
+         ___   / ___)(  )   / _\ / ___)/ )( \
+        (___)  \___ \/ (_/\/    \\___ \) __ (
+               (____/\____/\_/\_/(____/\_)(_/
+         __ _  _  _  __    __                
+        (  ( \/ )( \(  )  (  )               
+        /    /) \/ (/ (_/\/ (_/\             
+        \_)__)\____/\____/\____/
+        """
+            new_passwords_obj.write(slash_null_sig)
         ```
